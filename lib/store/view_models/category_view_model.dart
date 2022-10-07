@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 class CategoryViewModel with ChangeNotifier{
   final String title = "Shopping";
   final List<Map<String, String>> categoryList = [
-    // {
-    //   "text": "All",
-    //   "imagePath":
-    //   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAqpTBs_pvnU0ZnnRJYPdmplUZpUzmEdPJQQ&usqp=CAU"
-    // },
+    {
+      "text": "All",
+      "imagePath":
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAqpTBs_pvnU0ZnnRJYPdmplUZpUzmEdPJQQ&usqp=CAU"
+    },
     {
       "text": "men's clothing",
       "imagePath":

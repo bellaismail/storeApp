@@ -19,7 +19,6 @@ class _StoreHomeViewState extends State<StoreHomeView> {
 
   @override
   void initState() {
-    context.read<StoreHomeViewModel>().getAllItems(ItemsAPI());
     super.initState();
   }
 
@@ -33,7 +32,8 @@ class _StoreHomeViewState extends State<StoreHomeView> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var provider = Provider.of<StoreHomeViewModel>(context, listen: true);
-    var providerList = Provider.of<StoreHomeViewModel>(context, listen: true).productList;
+    var providerList =
+        Provider.of<StoreHomeViewModel>(context, listen: true).productList;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -70,29 +70,18 @@ class _StoreHomeViewState extends State<StoreHomeView> {
                   ),
                 ),
               ),
-              // Container(
-              //   child: SingleChildScrollView(
-              //     scrollDirection: Axis.horizontal,
-              //     child: Row(
-              //       children: [
-              //         CategorySmallCard(categoryName: "men's clothing"),
-              //         CategorySmallCard(categoryName: "women's clothing"),
-              //         CategorySmallCard(categoryName: "electrical"),
-              //         CategorySmallCard(categoryName: "jewelery"),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               Container(
-                height: (MediaQuery.of(context).orientation == Orientation.portrait)
+                height:
+                    (MediaQuery.of(context).orientation == Orientation.portrait)
                         ? screenSize.height * .07
                         : screenSize.height * .155,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: provider.allCategory.length,
-                  itemBuilder: (contextm, index) {
+                  itemBuilder: (context, index) {
                     return CategorySmallCard(
-                        categoryName: provider.allCategory[index]);
+                      categoryName: provider.allCategory[index],
+                    );
                   },
                 ),
               ),
@@ -104,52 +93,25 @@ class _StoreHomeViewState extends State<StoreHomeView> {
                     : ListView.builder(
                         itemCount: providerList.length,
                         itemBuilder: (context, index) {
-                          if (widget.categoryName == providerList[index].category) {
-                            // if (providerList[index].title!.contains(searchControl.text)) {
-                            //   return Container(
-                            //     padding: const EdgeInsets.all(15.0),
-                            //     child: Column(
-                            //       children: [
-                            //         Image.network(
-                            //           "${providerList[index].image}",
-                            //           width: screenSize.width * .75,
-                            //           height: screenSize.height * .30,
-                            //         ),
-                            //         Text(
-                            //           "\"${providerList[index].title}\"",
-                            //           style: const TextStyle(
-                            //             fontSize: 15.0,
-                            //             fontWeight: FontWeight.w300,
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   );
-                            // } else {
-                            //   return const SizedBox();
-                            // }
-                            return Container(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                children: [
-                                  Image.network(
-                                    "${providerList[index].image}",
-                                    width: screenSize.width * .75,
-                                    height: screenSize.height * .30,
+                          return Container(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  "${providerList[index].image}",
+                                  width: screenSize.width * .75,
+                                  height: screenSize.height * .30,
+                                ),
+                                Text(
+                                  "\"${providerList[index].title}\"",
+                                  style: const TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w300,
                                   ),
-                                  Text(
-                                    "\"${providerList[index].title}\"",
-                                    style: const TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
+                                ),
+                              ],
+                            ),
+                          );
                         },
                       ),
               ),
@@ -162,7 +124,7 @@ class _StoreHomeViewState extends State<StoreHomeView> {
 }
 
 class CategorySmallCard extends StatefulWidget {
-  CategorySmallCard({required this.categoryName});
+  CategorySmallCard({this.categoryName});
 
   String? categoryName;
 
@@ -173,25 +135,11 @@ class CategorySmallCard extends StatefulWidget {
 class _CategorySmallCardState extends State<CategorySmallCard> {
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = Colors.indigo;
-    Color textColor = Colors.white;
+    Color backgroundColor = Colors.white;
+    Color textColor = Colors.indigo;
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          if (textColor == Colors.white) {
-            textColor = Colors.indigo;
-            backgroundColor = Colors.white;
-          } else {
-            textColor = Colors.white;
-            backgroundColor = Colors.indigo;
-          }
-        });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  StoreHomeView(categoryName: widget.categoryName!)),
-        );
+      onTap: (){
+          Provider.of<StoreHomeViewModel>(context, listen: false).updateByCategory(widget.categoryName);
       },
       child: Card(
         child: Padding(

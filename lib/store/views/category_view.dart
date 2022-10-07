@@ -15,6 +15,7 @@ class _CategoryViewState extends State<CategoryView> {
 
   @override
   void initState() {
+    print("////////////initState in category  page*****************");
     context.read<StoreHomeViewModel>().getAllItems(ItemsAPI());
     super.initState();
   }
@@ -79,6 +80,7 @@ class CategoryCard extends StatelessWidget {
             ),
           ),
         );
+        Provider.of<StoreHomeViewModel>(context, listen: false).updateByCategory(categoryName);
       },
       child: Card(
         elevation: 10.0,
@@ -114,45 +116,3 @@ class CategoryCard extends StatelessWidget {
     );
   }
 }
-
-/*
-* Expanded(
-      child: InkWell(
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => StoreHomeView(categoryName: categoryName!,)));
-        },
-        child: Card(
-          elevation: 10.0,
-          shape: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
-          ),
-          child: Container(
-            width: screenSize.width / 3,
-            height: screenSize.height / 4,
-            margin: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage("$imagePath"),
-                fit: BoxFit.cover,
-                opacity: 0.8,
-              ),
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Center(
-              child: Text(
-                "$text",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    )
-* */
